@@ -3,7 +3,6 @@ from web import Storage
 from config import db
 
 def get_article_by_name(name):
-    print name
     return db.select('articles',vars=dict(name=name),where = "name=$name").list()[0]
 
 def name_exist_p(name):

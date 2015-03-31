@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import web
 from web import form
 from web import  Storage
@@ -39,14 +40,12 @@ class Registration:
         p = mww.Panel('Application','Thank you form your Application!')
         return render.l12(p.render())
 
-content_template = '''<div class="row"><div class="col-md-1"></div>
+content_template = u'''<div class="row"><div class="col-md-1"></div>
 <div class="col-md-10">
 <ul>
-<li>Start your online registration.</li>
-<li>Please refer to the Bank Transfer Information for payment as soon as possible.</li>
-<li>We accept abstracts or presentation summaries, but we do welcome full paper contributions, please submit your full paper online now.</li>
-<li>To obtain an invitation letter from the organizing committee for visa application, please advise us of your request via E-mail.</li>
-<li>For new registrations, please create a new account below by entering your email address and password information. For existing registrations, use the login panel to the right.</li>
+<li>第一点</li>
+<li>第二点</li>
+<li>第三点</li>
 </ul>
 </div>
 <div class="col-md-1"></div>
@@ -64,11 +63,9 @@ content_template = '''<div class="row"><div class="col-md-1"></div>
 content_template1 = '''<div class="row"><div class="col-md-1"></div>
 <div class="col-md-10">
 <ul>
-<li>Start your online registration.</li>
-<li>Please refer to the Bank Transfer Information for payment as soon as possible.</li>
-<li>We accept abstracts or presentation summaries, but we do welcome full paper contributions, please submit your full paper online now.</li>
-<li>To obtain an invitation letter from the organizing committee for visa application, please advise us of your request via E-mail.</li>
-<li>For new registrations, please create a new account below by entering your email address and password information. For existing registrations, use the login panel to the right.</li>
+<li>第一点</li>
+<li>第二点</li>
+<li>第三点</li>
 </ul>
 </div>
 <div class="col-md-1"></div>
@@ -89,7 +86,7 @@ class RegistrationGate:
         ssif = mww.MyForm(login1_form(),'/Login',method="get")
         ssuf = mww.MyForm(register1_form(),'/Register',method="get")
         content = content_template % (ssuf.render_css(),ssif.render_css())
-        p = mww.Panel('ICMST2015 Conference Visit Application',content)
+        p = mww.Panel('ICMST2015 会议参观申请',content)
         return render.l12(p.render())
 
 class SendApply:
@@ -100,4 +97,3 @@ class SendApply:
         content = content_template1 % (send.render_css())
         p = mww.Panel('Apply',content)
         return render.l12(p.render())
-

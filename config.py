@@ -3,6 +3,7 @@ import os
 
 DB_NAME = 'db.sqlite3'
 db = web.database(dbn='sqlite',db=DB_NAME)
+db.printing = False
 
 upload_dir = "./receive/"
 
