@@ -21,18 +21,18 @@ urls = (
     '/Registration',                   'app.controllers.attendant.Registration',
     '/SendApply',                      'app.controllers.attendant.SendApply',
     '/RegistrationGate',               'app.controllers.attendant.RegistrationGate',
-    
+
     '/UserManage',                     'app.controllers.admin.UserManage',
     '/ResetUserPassword',              'app.controllers.admin.ResetUserPassword',
 
     '/AddArticle',                     'app.controllers.articlemanage.AddArticle',
     '/DelArticle',                     'app.controllers.articlemanage.DelArticle',
     '/AlterArticle',                   'app.controllers.articlemanage.AlterArticle',
-    
+
 #    '/UserDetail',                     'app.controllers.detail.UserDetail',
-    
+
     '/RegReport',                      'app.controllers.report.RegReport',
-    
+
     '/(?:img|js|css)/.*',              'app.controllers.public.public',
     '/download',                       'app.controllers.public.received',
 )

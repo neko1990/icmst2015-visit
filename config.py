@@ -9,11 +9,11 @@ upload_dir = "./receive/"
 web.config.debug = False
 
 # used to save password
-PASSWORD_SALT = "jlk38b2WSA2fFoNsAlT754-"
+PASSWORD_SALT = "jlk38blksdivnsfFoNsAlT754-"
 
 # session parameters
-web.config.session_parameters.cookie_name = "icmst2015_sid"
-web.config.session_parameters.secret_key = 'session--salt'
+web.config.session_parameters.cookie_name = "visiticm_sid"
+web.config.session_parameters.secret_key = 'session--saltvisiticm'
 
 # template cache
 cache = False
@@ -29,12 +29,6 @@ render = web.template.render(
         'title_list':(lambda : web.config._title_list)
     })
 
-# mail setting
-web.config.smtp_server = 'mail.cumt.edu.cn'
-web.config.smtp_username = 'icmst2015'
-web.config.smtp_password = '664df778bdf272fe'
-web.config.smtp_starttls = True
-
 # TODO how to set this?
 web.config.email_errors = ''
 
@@ -48,4 +42,3 @@ PROFILE_LINKS = [
 ]
 
 PROPERTY_LIST = ['email']
-

@@ -13,6 +13,7 @@ from app.helpers.forms import register_detail_form
 from app.helpers.forms import reset_password_form
 from app.helpers.forms import register_form
 from app.helpers.forms import forgot_password_form
+
 from config import PROPERTY_LIST
 from config import render
 
