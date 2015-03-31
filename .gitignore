@@ -1,0 +1,6 @@
+*.pyc
+*.bak
+*.sqlite3
+/sessions
+/receive
+.idea

@@ -1,0 +1,154 @@
+$def with (page)
+
+$ _session = context()
+$ _title_list = title_list()
+
+$code:
+    def limit(s, width=5):
+        """limits a string to the given width"""
+        if len(s) >= width:
+            return s[:width] + ".."
+        else:
+            return s
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="The 7th International Conference on Mining Science and Technology (ICMST2015)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>The 7th International Conference on Mining Science and Technology (ICMST2015)</title>
+
+    <!-- CSS -->
+    <link href="/static/images/favicon.png" rel="icon"/>
+    <link rel="stylesheet" href="static/css/superhero_bootstrap.min.css" />
+    <style type="text/css">
+.vertical-align {
+display: flex;
+align-items: center;
+}
+.logopadding5 {
+padding: 5%;
+}
+.logopadding10 {
+padding: 10%;
+}
+
+    </style>
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+  </head>
+
+
+  <body>
+    <div class="container">
+
+      <!-- Header -->
+      <div class="jumbotron">
+        <div class="row">
+          <div id="logo" class="col-md-2 media">
+            <center>
+              <img width=128  src="static/images/logo_m.png">
+            </center>
+          </div>
+
+          <div class="col-md-10" style="text-align:center">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>The 7<sup>th</sup> International Conference on Mining Science and Technology</h3>
+                <h4>ICMST2015</h4>
+              </div>
+              <div class="col-md-12">
+                <em>April 26-29, 2015</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Xuzhou, China</em>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div> <!-- jumbotron -->
+      <!-- Static navbar -->
+      <nav class="navbar navbar-inverse" role="navigation">
+       <div class="container-fluid">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-inverse-collapse" id="navbar-ul">
+
+          <ul class="nav navbar-nav">
+            $for first_level in _title_list:
+              $if len(first_level.child) >0 :
+                <li class="dropdown">
+                  <a href="Article?name=$first_level.name" class="dropdown-toggle" data-toggle="dropdown">
+                    $first_level.title
+                  </a>
+                  <ul class="dropdown-menu">
+                    $for child in first_level.child:
+                      <li><a href="Article?name=$child.name">$child.title</a></li>
+                  </ul>
+                </li>
+              $else:
+                <li><a href="Article?name=$first_level.name">$first_level.title</a></li>
+
+            $if _session.privilege!=0:
+              <li class="dropdown">
+                <a href="/Profile" class="dropdown-toggle" data-toggle="dropdown">
+                  $limit( _session.email )  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  $for act in _session.actions:
+                    <li><a href="$act[0]">$act[1]</a></li>
+                </ul>
+              </li>
+            $else:
+              <li class="dropdown">
+                <a href="/Profile" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/Register">Register</a></li>
+                  <li><a href="/Login">Login</a></li>
+                </ul>
+              </li>
+          </ul>
+
+          <!-- Search Form-->
+          <form class="navbar-right navbar-form" action="http://www.yahoo.com.cn/search" role="search" >
+            <input type="hidden" name="sitesearch" value="icmst2015.cumt.edu.cn"/>
+            <input type="hidden" name="vs" value="icmst2015.cumt.edu.cn"/>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="q"/>
+              <div class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+
+        </div> <!--/.nav-collapse -->
+       </div> <!--/.contianer-fluid -->
+      </nav> <!-- navigation -->
+
+      <div>
+        $:page
+      </div>
+
+
+      <!-- Footer -->
+      <hr>
+      <footer class="bs-footer" role="contentinfo" id="footer">
+        <div class="container">
+          <p>China University of Mining and Technology
+          </p>
+          <p>Address: No.1, Daxue Road, Nanhu Campus, China University of Mining and Technology, Xuzhou, Jiangsu Province. Postcode：221116 </p>
+        </div>
+      </footer>
+
+    </div> <!-- container -->
+  </body>
+</html>

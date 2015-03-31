@@ -1,0 +1,13 @@
+$def with (title,form,callback)
+<div class="framework">
+  <div class="frarow block">
+    <div class="regblock">
+      <form method="post" class="default_form" action="$callback">
+        <fieldset>
+          <legend>$title</legend>
+          $:form.render()
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

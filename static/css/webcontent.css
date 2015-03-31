@@ -1,0 +1,61 @@
+.leftmenu{
+    width:15%;
+    margin:0;
+    float:left;
+	overflow: hidden;
+}
+.leftmenu fieldset  {
+    padding:3px;
+    border:2px solid #4682B4;
+}
+.leftmenu legend {
+    padding-left:4px;
+    padding-right:4px;
+    font-size:16px;
+    font-weight:bold;
+    font:Arial, sans-serif;
+    color:#2F4F4F;
+}
+.leftmenu li.l1{
+    background-color:#4682B4;
+    margin:2px;
+    text-align:center;
+    color:white;
+}
+.leftmenu ul a{
+    color:white;
+}
+
+.rightcontent{
+    overflow: hidden;
+    float:left;
+    border-top:2px solid #1E90FF;
+    background-color:white;
+    width:800px;
+	min-height:800px;
+    margin-left:10px;
+    margin-top:5px;
+}
+.hcontent{
+ 
+    background-color:#F0F8FF;
+    font-size:14px;
+}
+
+.rightcontent p {
+    padding-left:16px;
+}
+
+.rightcontent table{
+    margin-top:10px;
+    width:780px;
+    margin-left:4px;
+}
+
+.righttable th,td{border-right:1px solid #666;padding:4px;}
+.righttable th{font-weight:normal;border:1px solid #666;}
+.righttable td{text-align:center;}
+.righttable input,select{center-left;}
+.righttable select{width:90px;font-size:15px;}
+input{border-width:1px;border-style:solid;border-color:#333 #BBB #BBB #333;}
+input#submit{width:50px;height:23px;border:1px solid #666;font-size:15px;}
