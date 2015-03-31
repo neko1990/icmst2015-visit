@@ -33,10 +33,6 @@ render = web.template.render(
 # TODO how to set this?
 web.config.email_errors = ''
 
-COUNTRY_LIST = [
-'mining','computer'
-]
-
 PROFILE_LINKS = [
     ["/Profile","Profile"],
     ["/ResetPassword","Reset Password"]
