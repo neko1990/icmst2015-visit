@@ -1,5 +1,6 @@
 import web
 import os
+from web.contrib.template import render_jinja
 
 DB_NAME = 'db.sqlite3'
 db = web.database(dbn='sqlite',db=DB_NAME)
@@ -22,13 +23,14 @@ cache = False
 # static page path
 STATIC_PATH = os.path.realpath('static')
 
-# render or view
-render = web.template.render(
-    'app/templates',base="base",cache=cache,
-    globals={
-        'context': (lambda : web.config._session),
-        'title_list':(lambda : web.config._title_list)
-    })
+# view
+render = render_jinja(
+    'app/templates',
+    encoding = 'utf-8')
+
+render._lookup.globals.update({
+    'session_getter':(lambda : web.config._session),
+    'title_list_getter':(lambda : web.config._title_list)})
 
 # TODO how to set this?
 web.config.email_errors = ''

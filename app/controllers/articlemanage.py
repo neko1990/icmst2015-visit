@@ -15,7 +15,7 @@ class AddArticle:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Add New Article',myf.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     def add_article_form(self):
         return form.Form(
@@ -49,7 +49,7 @@ class AddArticle:
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Add New Article',myf.render_css())
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
         else:
             if f.d.parent == "NEW_TOPIC":
                 articles.add_article(f.d.name, f.d.title, f.d.content, "NOPARENT" )
@@ -65,7 +65,7 @@ class DelArticle:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Del A Article',myf.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     @session.privilege_match(5)
     def POST(self):
@@ -76,7 +76,7 @@ class DelArticle:
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Del A Article',myf.render_css())
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
         else:
             a = articles.get_article_by_name(ipt.name)
             leaves = articles.get_articles_by_parent(a.parent)
@@ -107,7 +107,7 @@ class AlterArticle:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Article Select',myf.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     def article_select_form(self):
         return form.Form(
@@ -135,7 +135,7 @@ class AlterArticle:
             asf.form.fill(ipt)
             r1 = mww.Panel('Article Select',asf.render_css())
             r2 = mww.Panel('Alter Article',aaf.render_css())
-            return render.l3r9(l.render(),r1.render()+r2.render())
+            return render.l3r9(left=l.render(),right=r1.render()+r2.render())
 
         elif 'name' in ipt and 'parent' in ipt and 'has_child_p' in ipt and articles.parent_sans_p(ipt.parent):
             # TODO result check
@@ -147,7 +147,7 @@ class AlterArticle:
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Article Select',myf.render_css())
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
 
     def alter_article_form(self):
         return form.Form(

@@ -1,17 +1,8 @@
-$def with (page)
-
-$ _session = context()
-$ _title_list = title_list()
-
-$code:
-    def limit(s, width=5):
-        """limits a string to the given width"""
-        if len(s) >= width:
-            return s[:width] + ".."
-        else:
-            return s
-
 <!DOCTYPE html>
+
+{% set session = session_getter() %}
+{% set title_list = title_list_getter() %}
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -24,21 +15,21 @@ $code:
     <link href="/static/images/favicon.png" rel="icon"/>
     <link rel="stylesheet" href="static/css/superhero_bootstrap.min.css" />
     <style type="text/css">
-.vertical-align {
-display: flex;
-align-items: center;
-}
-.logopadding5 {
-padding: 5%;
-}
-.logopadding10 {
-padding: 10%;
-}
-
+    .vertical-align {
+        display: flex;
+        align-items: center;
+    }
+    .logopadding5 {
+        padding: 5%;
+    }
+    .logopadding10 {
+        padding: 10%;
+    }
     </style>
 
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/bootstrap.js"></script>
+
   </head>
 
 
@@ -70,45 +61,49 @@ padding: 10%;
       </div> <!-- jumbotron -->
       <!-- Static navbar -->
       <nav class="navbar navbar-inverse" role="navigation">
-       <div class="container-fluid">
+        <div class="container-fluid">
 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/"></a>
-        </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"></a>
+          </div>
 
-        <div class="collapse navbar-collapse navbar-inverse-collapse" id="navbar-ul">
+          <div class="collapse navbar-collapse navbar-inverse-collapse" id="navbar-ul">
 
-          <ul class="nav navbar-nav">
-            $for first_level in _title_list:
-              $if len(first_level.child) >0 :
-                <li class="dropdown">
-                  <a href="Article?name=$first_level.name" class="dropdown-toggle" data-toggle="dropdown">
-                    $first_level.title
-                  </a>
-                  <ul class="dropdown-menu">
-                    $for child in first_level.child:
-                      <li><a href="Article?name=$child.name">$child.title</a></li>
-                  </ul>
-                </li>
-              $else:
-                <li><a href="Article?name=$first_level.name">$first_level.title</a></li>
-
-            $if _session.privilege!=0:
+            <ul class="nav navbar-nav">
+              {% for first_level in title_list %}
+              {% if first_level.child|length >0 %}
               <li class="dropdown">
-                <a href="/Profile" class="dropdown-toggle" data-toggle="dropdown">
-                  $limit( _session.email )  <b class="caret"></b>
+                <a href="Article?name={{first_level.name}}" class="dropdown-toggle" data-toggle="dropdown">
+                  {{ first_level.title }}
                 </a>
                 <ul class="dropdown-menu">
-                  $for act in _session.actions:
-                    <li><a href="$act[0]">$act[1]</a></li>
+                  {% for child in first_level.child %}
+                  <li><a href="Article?name={{child.name}}">{{child.title}}</a></li>
+                  {% endfor %}
                 </ul>
               </li>
-            $else:
+              {% else %}
+              <li><a href="Article?name={{first_level.name}}">{{first_level.title}}</a></li>
+              {% endif %}
+              {% endfor %}
+
+              {% if session.privilege!=0 %}
+              <li class="dropdown">
+                <a href="/Profile" class="dropdown-toggle" data-toggle="dropdown">
+                  {{ session.email|truncate(8,True) }}   <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  {% for act in session.actions %}
+                  <li><a href="{{act[0]}}">{{act[1]}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              {% else %}
               <li class="dropdown">
                 <a href="/Profile" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -116,26 +111,28 @@ padding: 10%;
                   <li><a href="/Login">Login</a></li>
                 </ul>
               </li>
-          </ul>
+              {% endif %}
+            </ul>
 
-          <!-- Search Form-->
-          <form class="navbar-right navbar-form" action="http://www.yahoo.com.cn/search" role="search" >
-            <input type="hidden" name="sitesearch" value="icmst2015.cumt.edu.cn"/>
-            <input type="hidden" name="vs" value="icmst2015.cumt.edu.cn"/>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search" name="q"/>
-              <div class="input-group-btn">
-                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            <!-- Search Form-->
+            <form class="navbar-right navbar-form" action="http://www.yahoo.com.cn/search" role="search" >
+              <input type="hidden" name="sitesearch" value="icmst2015.cumt.edu.cn"/>
+              <input type="hidden" name="vs" value="icmst2015.cumt.edu.cn"/>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="q"/>
+                <div class="input-group-btn">
+                  <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
 
-        </div> <!--/.nav-collapse -->
-       </div> <!--/.contianer-fluid -->
+          </div> <!--/.nav-collapse -->
+        </div> <!--/.contianer-fluid -->
       </nav> <!-- navigation -->
 
       <div>
-        $:page
+        {% block content %}
+        {% endblock %}
       </div>
 
 

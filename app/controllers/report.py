@@ -42,11 +42,8 @@ class RegReport:
                   ['college','college'],
                   ['num','num']
                   ]
-                  
         rs = reg.get_all_registrations()
         t = mww.Table(schema,
                       rs,
                       class_='table table-striped table-hover display')
         return report_render(t.render())
-
-

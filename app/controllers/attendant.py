@@ -24,7 +24,7 @@ class Registration:
             raise web.seeother('/RegistrationGate')
         f = mww.MyForm(self.registration_form(),'/Registration')
         p = mww.Panel('Application',f.render_css())
-        return render.l12(p.render())
+        return render.l12( page = p.render())
 
     def POST(self):
         if session.get_session().privilege != 1:
@@ -33,11 +33,11 @@ class Registration:
         f = mww.MyForm(self.registration_form(),'/Registration')
         if not f.form.validates(ipt):
             p = mww.Panel('Application',f.render_css())
-            return render.l12(p.render())
+            return render.l12( page = p.render())
         regid = reg.add_reg(f.form.d)
         reg.write_reg_log(session.get_session().uid,regid)
         p = mww.Panel('Application','Thank you form your Application!')
-        return render.l12(p.render())
+        return render.l12( page = p.render())
 
     def registration_form(self):
         return form.Form(
@@ -108,7 +108,7 @@ class RegistrationGate:
         ssuf = mww.MyForm(self.register1_form(),'/Register',method="get")
         content = content_template % (ssuf.render_css(),ssif.render_css())
         p = mww.Panel(u'ICMST2015 会议参观申请',content)
-        return render.l12(p.render())
+        return render.l12( page = p.render())
 
     def login1_form(self):
         return form.Form(
@@ -127,7 +127,7 @@ class SendApply:
         send = mww.MyForm(self.sendapply_form(),'/Registration',method="get")
         content = content_template1 % (send.render_css())
         p = mww.Panel('Apply',content)
-        return render.l12(p.render())
+        return render.l12( page = p.render())
 
     def sendapply_form(self):
         return form.Form(

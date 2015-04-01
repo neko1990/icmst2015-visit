@@ -23,7 +23,7 @@ class UserManage:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('User Management',myf.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     @session.privilege_match(5)
     def POST(self):
@@ -64,7 +64,7 @@ class UserManage:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('User Management',myf.render_css()+t.render())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     def user_search_form(self):
         return form.Form(
@@ -82,7 +82,7 @@ class ResetUserPassword:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Reset User Password',f.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     @session.privilege_match(5)
     def POST(self):
@@ -92,7 +92,7 @@ class ResetUserPassword:
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Reset User Password',f.render_css())
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
         else:
             users.reset_password(ipt.uid,ipt.new_password)
             return "success"

@@ -1,11 +1,13 @@
-$def with (l,r)
+{% extends "base.html" %}
 
+{% block content %}
 <div class="row">
   <div class="col-md-3">
-    $:l
+    {{left}}
   </div>
 
   <div class="col-md-9">
-    $:r
+    {{right}}
   </div>
 </div>
+{% endblock %}

@@ -30,7 +30,7 @@ CREATE TABLE sessions (
 );
 
 CREATE TABLE reg_journal(
-        by_uid REFERENCES users(uid),
-        regid REFERENCES registration(regid),
-        ctime DATETIME DEFAULT CURRENT_TIMESTAMP
-        );
+    by_uid REFERENCES users(uid),
+    regid REFERENCES registration(regid),
+    ctime DATETIME DEFAULT CURRENT_TIMESTAMP
+);

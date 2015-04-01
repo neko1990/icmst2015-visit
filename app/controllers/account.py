@@ -21,7 +21,7 @@ class Register:
             raise web.seeother('/Profile')
         form = mww.MyForm(self.register_form(),'/Register')
         r = mww.Panel(u'注册',form.render_css()).render()
-        return render.l12(r)
+        return render.l12( page = r)
 
     def POST(self):
         f = mww.MyForm(self.register_form(),'/Register')
@@ -29,7 +29,7 @@ class Register:
         if not f.form.validates(ipt):
             show = web.input(show='all').show
             r = mww.Panel(u'注册',f.render_css()).render()
-            return render.l12(r)
+            return render.l12( page = r)
         else:
             users.create_account(
                 email = f.form.d.email,
@@ -66,7 +66,7 @@ class Login:
     def GET(self):
         form = mww.MyForm(self.login_form(),'/Login')
         r = mww.Panel('Login',form.render_css()).render()
-        return render.l12(r)
+        return render.l12( page = r)
 
     def POST(self):
         f = mww.MyForm(self.login_form(),'/Login')
@@ -75,7 +75,7 @@ class Login:
             # show = ipt.get('show','all')
             show = web.input(show='all').show
             r = mww.Panel('Login',f.render_css()).render()
-            return render.l12(r)
+            return render.l12( page = r)
         else:
             session.login(f.form.d.email)
             raise web.seeother('/SendApply')
@@ -110,7 +110,7 @@ class Profile:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Profile',f.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     @session.login_required
     def POST(self):
@@ -120,7 +120,7 @@ class Profile:
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Profile',f.render_css())
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
         else:
             users.update(session.get_session().uid,
                          **utils.extract_info_from_storage_by_list(ipt,PROPERTY_LIST))
@@ -142,7 +142,7 @@ class ResetPassword:
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Reset Password',f.render_css())
-        return render.l3r9(l.render(),r.render())
+        return render.l3r9(left=l.render(),right=r.render())
 
     @session.login_required
     def POST(self):
@@ -152,7 +152,7 @@ class ResetPassword:
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Reset Password',f.render_css())
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
         else:
             users.reset_password(session.get_session().uid,ipt.new_password)
             return "success"

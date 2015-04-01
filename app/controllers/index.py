@@ -13,13 +13,13 @@ class Article:
         ipt = web.input()
         if not 'name' in ipt:
             return "GET Request Format error"
+        if not articles.name_exist_p(ipt.name):
+            return "%s Page not exist" % ipt.name
         a = articles.get_article_by_name(ipt.name)
-        if a is None:
-            return str(ipt.name) + ' not exist'
-        elif a.content.startswith('URL:'):
+        if a.content.startswith('URL:'):
             raise web.seeother(a.content[4:])
         elif a.parent == "NOPARENT":
-            return render.l12(a.content)
+            return render.l12(page = a.content)
         else:
             parent = articles.get_article_by_name(a.parent)
             #TODO: use hash table, instead of liner look up table
@@ -31,4 +31,4 @@ class Article:
             s = mww.ListGroup(left_links).render()
             l = mww.Panel(parent.title,None,s)
             r = mww.Panel(a.title,a.content)
-            return render.l3r9(l.render(),r.render())
+            return render.l3r9(left=l.render(),right=r.render())
