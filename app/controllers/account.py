@@ -14,17 +14,17 @@ from config import render
 
 vemail = form.regexp(r'.+@.+', 'Please enter a valid email address')
 
-class Register:
+class SignUp:
     def GET(self):
         if session.get_session().privilege != 0:
             # already login
             raise web.seeother('/Profile')
-        form = mww.MyForm(self.register_form(),'/Register')
+        form = mww.MyForm(self.register_form(),'/SignUp')
         r = mww.Panel(u'注册',form.render_css()).render()
         return render.l12( page = r)
 
     def POST(self):
-        f = mww.MyForm(self.register_form(),'/Register')
+        f = mww.MyForm(self.register_form(),'/SignUp')
         ipt = web.input(_unicode=False)
         if not f.form.validates(ipt):
             show = web.input(show='all').show
@@ -36,7 +36,7 @@ class Register:
                 password = f.form.d.password,
                 privilege = 1)
             session.login(f.form.d.email)
-            raise web.seeother('/SendApply')
+            raise web.seeother('/SendApplication')
 
     def register_form(self):
         return form.Form(
@@ -56,7 +56,7 @@ class Register:
                           form.notnull,
                           description=u"* 确认密码",
                           class_="form-control"),
-            form.Button('Sign Up', type='submit', value='Register' , class_="btn btn-primary"),
+            form.Button('Sign Up', type='submit', value='SignUp' , class_="btn btn-primary"),
             validators = [
                 form.Validator('Password Not Match!.', lambda i:i.password == i.re_password)
             ]
@@ -64,6 +64,9 @@ class Register:
 
 class Login:
     def GET(self):
+        if session.get_session() != 1:
+            # already login
+            raise web.seeother('/Profile')
         form = mww.MyForm(self.login_form(),'/Login')
         r = mww.Panel('Login',form.render_css()).render()
         return render.l12( page = r)
@@ -78,7 +81,7 @@ class Login:
             return render.l12( page = r)
         else:
             session.login(f.form.d.email)
-            raise web.seeother('/SendApply')
+            raise web.seeother('/SendApplication')
 
     def login_form(self):
         return form.Form(
@@ -125,7 +128,7 @@ class Profile:
             users.update(session.get_session().uid,
                          **utils.extract_info_from_storage_by_list(ipt,PROPERTY_LIST))
             session.login(session.get_session().email)
-            return "success"
+            return render.single_panel( title = "Profile Change", body = "success!")
 
     def register_detail_form(self):
         return form.Form(

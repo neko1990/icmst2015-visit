@@ -16,19 +16,19 @@ CUMTSchoolList = [
 'mining','computer'
 ]
 
-class Registration:
+class Application:
     def GET(self):
         if session.get_session().privilege != 1:
-            raise web.seeother('/RegistrationGate')
-        f = mww.MyForm(self.registration_form(),'/Registration')
+            raise web.seeother('/ApplicationRoute')
+        f = mww.MyForm(self.registration_form(),'/Application')
         p = mww.Panel('Application',f.render_css())
         return render.l12( page = p.render())
 
     def POST(self):
         if session.get_session().privilege != 1:
-            raise web.seeother('/RegistrationGate')
+            raise web.seeother('/ApplicationRoute')
         ipt = web.input(_unicode=True)
-        f = mww.MyForm(self.registration_form(),'/Registration')
+        f = mww.MyForm(self.registration_form(),'/Application')
         if not f.form.validates(ipt):
             p = mww.Panel('Application',f.render_css())
             return render.l12( page = p.render())
@@ -58,75 +58,14 @@ class Registration:
         )
 
 
-content_template = u'''<div class="row"><div class="col-md-1"></div>
-<div class="col-md-10">
-<ul>
-<li>第一点</li>
-<li>第二点</li>
-<li>第三点</li>
-</ul>
-</div>
-<div class="col-md-1"></div>
-</div>
-<div class="row">
-<h3>&nbsp;</h3>
-</div>
-<div class="row">
-<div class="col-md-4"></div>
-<div class="col-md-2">%s</div>
-<div class="col-md-2">%s</div>
-<div class="col-md-4"></div>
-</div>'''
-
-content_template1 = u'''<div class="row"><div class="col-md-1"></div>
-<div class="col-md-10">
-<ul>
-<li>第一点</li>
-<li>第二点</li>
-<li>第三点</li>
-</ul>
-</div>
-<div class="col-md-1"></div>
-</div>
-<div class="row">
-<h3>&nbsp;</h3>
-</div>
-<div class="row">
-<div class="col-md-4"></div>
-<div class="col-md-4">%s</div>
-<div class="col-md-4"></div>
-</div>'''
-
-class RegistrationGate:
+class ApplicationRoute:
     def GET(self):
         if session.get_session().privilege == 1:
-            raise web.seeother('/SendApply')
-        ssif = mww.MyForm(self.login1_form(),'/Login',method="get")
-        ssuf = mww.MyForm(self.register1_form(),'/Register',method="get")
-        content = content_template % (ssuf.render_css(),ssif.render_css())
-        p = mww.Panel(u'ICMST2015 会议参观申请',content)
-        return render.l12( page = p.render())
+            raise web.seeother('/SendApplication')
+        return render.registration_gate()
 
-    def login1_form(self):
-        return form.Form(
-            form.Button('Login', submit='submit' , class_="btn btn-primary")
-        )
-
-    def register1_form(self):
-        return form.Form(
-            form.Button('Register', submit='submit' , class_="btn btn-primary")
-        )
-
-class SendApply:
+class SendApplication:
     def GET(self):
         if session.get_session().privilege != 1:
-            raise web.seeother('/RegistrationGate')
-        send = mww.MyForm(self.sendapply_form(),'/Registration',method="get")
-        content = content_template1 % (send.render_css())
-        p = mww.Panel('Apply',content)
-        return render.l12( page = p.render())
-
-    def sendapply_form(self):
-        return form.Form(
-            form.Button('submit', submit='submit',class_="btn btn-primary")
-        )
+            raise web.seeother('/ApplicationRoute')
+        return render.registration_gate1()

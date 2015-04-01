@@ -11,16 +11,16 @@ urls = (
     '/CallForPaper',                   'app.controllers.index.CallForPaper',
     '/Article',                        'app.controllers.index.Article',
 
-    '/Register',                       'app.controllers.account.Register',
+    '/SignUp',                         'app.controllers.account.SignUp',
     '/Login',                          'app.controllers.account.Login',
     '/Logout',                         'app.controllers.account.Logout',
     '/Profile',                        'app.controllers.account.Profile',
     '/ResendPassword',                 'app.controllers.account.ResendPassword',
     '/ResetPassword',                  'app.controllers.account.ResetPassword',
 
-    '/Registration',                   'app.controllers.attendant.Registration',
-    '/SendApply',                      'app.controllers.attendant.SendApply',
-    '/RegistrationGate',               'app.controllers.attendant.RegistrationGate',
+    '/Application',                    'app.controllers.attendant.Application',
+    '/SendApplication',                'app.controllers.attendant.SendApplication',
+    '/ApplicationRoute',               'app.controllers.attendant.ApplicationRoute',
 
     '/UserManage',                     'app.controllers.admin.UserManage',
     '/ResetUserPassword',              'app.controllers.admin.ResetUserPassword',
