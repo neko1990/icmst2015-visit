@@ -10,7 +10,6 @@ from app.models import users
 
 from config import render
 
-
 def user_record_trans_to_display(r):
     return Storage(operations='<a href="%s">%s</a>' % ('/UserDetail?uid=%d' % (r.get('uid')),'Detail'),
                    **r)

@@ -7,10 +7,8 @@ import time
 
 from app.helpers import session
 from app.helpers import mywebwidgets as mww
-from app.helpers.utils import file_record_trans_to_display
 
 from app.models import users
-from app.models import reg
 
 from config import render
 
@@ -34,8 +32,7 @@ class Registration:
         if not f.form.validates(ipt):
             p = mww.Panel('Application',f.render_css())
             return render.l12( page = p.render())
-        regid = reg.add_reg(f.form.d)
-        reg.write_reg_log(session.get_session().uid,regid)
+        regid = users.add_reg(session.get_session().uid,f.form.d)
         p = mww.Panel('Application','Thank you form your Application!')
         return render.l12( page = p.render())
 
@@ -46,17 +43,17 @@ class Registration:
                           form.Validator("select college.",
                                          lambda i:i in CUMTSchoolList),
                           form.notnull,
-                          description="* college",
+                          description=u"* 学院",
                           class_="form-control"),
             form.Textbox('telephone',form.notnull,
-                         description='* Telephone',
+                         description=u"* 手机号码",
                          class_="form-control"),
             mww.MyRadio('gender',
-                        ['Female','Male'],
+                        ['Male','Female'],
                         value="Male",
-                        description="* gender"),
-            form.Textbox('num',form.notnull,description='* Student ID',class_="form-control"),
-            form.Textbox('name',form.notnull,description='* Name',class_="form-control"),
+                        description=u"* 性别"),
+            form.Textbox('studentid',form.notnull,description=u'* 学号',class_="form-control"),
+            form.Textbox('name',form.notnull,description=u'* 姓名',class_="form-control"),
             form.Button('submit', submit='submit',class_="btn btn-primary")
         )
 

@@ -29,7 +29,7 @@ urls = (
     '/DelArticle',                     'app.controllers.articlemanage.DelArticle',
     '/AlterArticle',                   'app.controllers.articlemanage.AlterArticle',
 
-#    '/UserDetail',                     'app.controllers.detail.UserDetail',
+    '/UserDetail',                     'app.controllers.detail.UserDetail',
 
     '/RegReport',                      'app.controllers.report.RegReport',
 

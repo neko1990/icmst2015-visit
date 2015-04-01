@@ -155,7 +155,7 @@ class ResetPassword:
             return render.l3r9(left=l.render(),right=r.render())
         else:
             users.reset_password(session.get_session().uid,ipt.new_password)
-            return "success"
+            return render.single_panel( title = "reset password", body = "success!")
 
     def reset_password_form(self):
         return form.Form(
@@ -163,7 +163,7 @@ class ResetPassword:
                           form.notnull,
                           form.Validator('Your password must at least 5 characters long.',
                                          lambda x: users.is_valid_password(x)),
-                          description='New Password',
+                          description='新密码',
                           class_="form-control"),
             form.Password('re_password',
                           form.notnull,

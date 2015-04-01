@@ -9,7 +9,10 @@ def hash_password(passwd):
 
 def create_account(email, password, privilege ):
     email = email.lower()
-    db.insert('users', email=email, password=hash_password(password),
+    hashed_password = hash_password(password)
+    db.insert('users',
+              email=email,
+              password=hashed_password,
               privilege=privilege)
 
 def get_user_by_email(email):
@@ -80,3 +83,18 @@ SELECT uid, group_concat(fid) as submited_fid,group_concat(distinct(session)) as
   GROUP BY uid,session
 ;'''
     return db.query(sql)
+
+
+def add_reg(uid,s):
+    return db.update('users', vars = dict(uid=uid),
+                     where = 'uid = $uid',
+                     studentid=s.studentid,
+                     college=s.college,
+                     name=s.name,
+                     telephone=s.telephone,
+                     gender=s.gender,
+    )
+
+def get_all_registrations():
+    return db.select('users',where='privilege==1 AND studentid NOT NULL' ).list()
+    # return db.query('''select registration.*,reg_journal.by_uid as uid from registration LEFT JOIN reg_journal ON reg_journal.regid=registration.regid''').list()
