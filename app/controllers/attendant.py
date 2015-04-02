@@ -21,6 +21,8 @@ class Application:
         if session.get_session().privilege != 1:
             raise web.seeother('/ApplicationRoute')
         f = mww.MyForm(self.registration_form(),'/Application')
+        user = users.get_user_by_uid(session.get_session().uid)
+        f.form.fill(user)
         p = mww.Panel('Application',f.render_css())
         return render.l12( page = p.render())
 

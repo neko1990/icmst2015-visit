@@ -25,7 +25,7 @@ class SignUp:
 
     def POST(self):
         f = mww.MyForm(self.register_form(),'/SignUp')
-        ipt = web.input(_unicode=False)
+        ipt = web.input(_unicode=True)
         if not f.form.validates(ipt):
             show = web.input(show='all').show
             r = mww.Panel(u'注册',f.render_css()).render()
@@ -44,7 +44,7 @@ class SignUp:
                          form.notnull, vemail,
                          form.Validator('This email address is already taken.',
                                         lambda x: users.is_email_available(x)),
-                         description=u'* 邮箱 ',
+                         description=u'* 邮箱',
                          class_="form-control"),
             form.Password('password',
                           form.notnull,
@@ -56,7 +56,7 @@ class SignUp:
                           form.notnull,
                           description=u"* 确认密码",
                           class_="form-control"),
-            form.Button('Sign Up', type='submit', value='SignUp' , class_="btn btn-primary"),
+            form.Button('SingUp', type='submit', value='SignUp', html=u"注册", class_="btn btn-primary"),
             validators = [
                 form.Validator('Password Not Match!.', lambda i:i.password == i.re_password)
             ]
@@ -64,7 +64,7 @@ class SignUp:
 
 class Login:
     def GET(self):
-        if session.get_session() != 1:
+        if session.get_session().privilege != 0:
             # already login
             raise web.seeother('/Profile')
         form = mww.MyForm(self.login_form(),'/Login')
@@ -93,7 +93,7 @@ class Login:
                           form.notnull,
                           description=u'密码',
                           class_="form-control"),
-            form.Button('Login',submit='submit' , class_="btn btn-primary"),
+            form.Button('Login',submit='submit' , class_="btn btn-primary",html=u"登陆"),
             validators = [
                 form.Validator('Incorrect email / password combination.',
                                lambda i: users.is_correct_password(i.email, i.password)),
@@ -172,15 +172,9 @@ class ResetPassword:
                           form.notnull,
                           description='确认密码',
                           class_="form-control"),
-            form.Button('Reset Password' , submit='submit' , class_="btn btn-primary"),
+            form.Button('Reset Password' , submit='submit' , class_="btn btn-primary" ,html=u"提交"),
             validators= [
                 form.Validator('Password Not Match!.',
                                lambda i:i.new_password == i.re_password)
             ]
         )
-
-class ResendPassword:
-    # TODO ResendPassword
-    @session.login_required
-    def GET(self):
-        return 'Hello, resend !! this is not implement, should config your mail server first !!'

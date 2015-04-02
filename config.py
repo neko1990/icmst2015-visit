@@ -8,7 +8,7 @@ db.printing = False
 
 upload_dir = "./receive/"
 
-web.config.debug = False
+web.config.debug = True
 
 # used to save password
 PASSWORD_SALT = "jlk38blksdivnsfFoNsAlT754-"
