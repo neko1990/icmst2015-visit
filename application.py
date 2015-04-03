@@ -15,7 +15,7 @@ urls = (
     '/Login',                          'app.controllers.account.Login',
     '/Logout',                         'app.controllers.account.Logout',
     '/Profile',                        'app.controllers.account.Profile',
-    '/ResendPassword',                 'app.controllers.account.ResendPassword',
+    #'/ResendPassword',                 'app.controllers.account.ResendPassword',
     '/ResetPassword',                  'app.controllers.account.ResetPassword',
 
     '/Application',                    'app.controllers.attendant.Application',
