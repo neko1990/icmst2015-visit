@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import web
 from web import form
+
 from web import  Storage
 from web.utils import safeunicode
 import time
@@ -13,7 +14,9 @@ from app.models import users
 from config import render
 
 CUMTSchoolList = [
-'mining','computer'
+u"矿业工程学院",u"安全工程学院",u"力学与建筑工程学院",u"机电工程学院",u"资源与地球科学学院",u"化工学院",u"环境与测绘学院",
+u"电力工程学院",u"材料科学与工程学院",u"理学院",u"计算机科学与技术学院",u"管理学院",u"文学与法政学院",u"马克思主义学院",
+u"外国语言文化学院",u"艺术与设计学院",u"体育学院",u"孙越崎学院",u"国际学院",u"应用技术学院",u"成人教育学院",u"其他",
 ]
 
 class Application:
