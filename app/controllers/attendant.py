@@ -44,7 +44,7 @@ class Application:
     def registration_form(self):
         return form.Form(
             form.Dropdown('college',
-                          ['==请选择您所在学院==']+CUMTSchoolList,
+                          [u'==请选择您所在学院==']+CUMTSchoolList,
                           form.Validator("select college.",
                                          lambda i:i in CUMTSchoolList),
                           form.notnull,
@@ -54,7 +54,7 @@ class Application:
                          description=u"* 手机号码",
                          class_="form-control"),
             mww.MyRadio('gender',
-                        ['男','女'],
+                        [u'男',u'女'],
                         form.notnull,
                         description=u"* 性别"),
             form.Textbox('studentid',form.notnull,description=u'* 学号',class_="form-control"),
