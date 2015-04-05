@@ -98,3 +98,6 @@ def add_reg(uid,s):
 def get_all_registrations():
     return db.select('users',where='privilege==1 AND studentid NOT NULL' ).list()
     # return db.query('''select registration.*,reg_journal.by_uid as uid from registration LEFT JOIN reg_journal ON reg_journal.regid=registration.regid''').list()
+
+def is_registered(uid):
+    return db.select('users',vars=dict(uid=uid),where='uid=$uid AND studentid NOT NULL')

@@ -26,7 +26,7 @@ class Application:
         f = mww.MyForm(self.registration_form(),'/Application')
         user = users.get_user_by_uid(session.get_session().uid)
         f.form.fill(user)
-        p = mww.Panel('Application',f.render_css())
+        p = mww.Panel(u'提交申请',f.render_css())
         return render.l12( page = p.render())
 
     def POST(self):
@@ -38,13 +38,13 @@ class Application:
             p = mww.Panel('Application',f.render_css())
             return render.l12( page = p.render())
         regid = users.add_reg(session.get_session().uid,f.form.d)
-        p = mww.Panel('Application','Thank you form your Application!')
+        p = mww.Panel(u'提交申请',u'申请已提交，点击<a href="/Application">这里</a>进行修改')
         return render.l12( page = p.render())
 
     def registration_form(self):
         return form.Form(
             form.Dropdown('college',
-                          ['-seclect college-']+CUMTSchoolList,
+                          ['==请选择您所在学院==']+CUMTSchoolList,
                           form.Validator("select college.",
                                          lambda i:i in CUMTSchoolList),
                           form.notnull,
@@ -54,23 +54,24 @@ class Application:
                          description=u"* 手机号码",
                          class_="form-control"),
             mww.MyRadio('gender',
-                        ['Male','Female'],
-                        value="Male",
+                        ['男','女'],
+                        form.notnull,
                         description=u"* 性别"),
             form.Textbox('studentid',form.notnull,description=u'* 学号',class_="form-control"),
             form.Textbox('name',form.notnull,description=u'* 姓名',class_="form-control"),
-            form.Button('submit', submit='submit',class_="btn btn-primary")
+            form.Button('submit', submit='submit',class_="btn btn-primary",html=u"保存修改")
         )
-
 
 class ApplicationRoute:
     def GET(self):
         if session.get_session().privilege == 1:
             raise web.seeother('/SendApplication')
-        return render.registration_gate()
+        return render.application_route()
 
 class SendApplication:
     def GET(self):
         if session.get_session().privilege != 1:
             raise web.seeother('/ApplicationRoute')
-        return render.registration_gate1()
+        # if users.is_registered(session.get_session().uid):
+        #     return render.application()
+        return render.send_application()
