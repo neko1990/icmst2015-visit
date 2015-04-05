@@ -41,5 +41,7 @@ app = web.application(urls,globals())
 session.add_sessions_to_app(app)
 web.config._title_list = articles.gen_title_list()
 
+application = app.wsgifunc()
+
 if __name__ == "__main__":
     app.run()
