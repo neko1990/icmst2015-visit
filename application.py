@@ -32,9 +32,6 @@ urls = (
     '/UserDetail',                     'app.controllers.detail.UserDetail',
 
     '/RegReport',                      'app.controllers.report.RegReport',
-
-    '/(?:img|js|css)/.*',              'app.controllers.public.public',
-    '/download',                       'app.controllers.public.received',
 )
 
 app = web.application(urls,globals())
