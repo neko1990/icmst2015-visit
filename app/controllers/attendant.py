@@ -38,7 +38,7 @@ class Application:
             p = mww.Panel('Application',f.render_css())
             return render.l12( page = p.render())
         regid = users.add_reg(session.get_session().uid,f.form.d)
-        p = mww.Panel(u'提交申请',u'申请已提交，点击<a href="/Application">这里</a>进行修改')
+        p = mww.Panel(u'提交申请',u'申请已提交，点击<a href="/cumt/Application">这里</a>进行修改')
         return render.l12( page = p.render())
 
     def registration_form(self):
