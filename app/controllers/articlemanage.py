@@ -11,7 +11,7 @@ from config import render
 class AddArticle:
     @session.privilege_match(5)
     def GET(self):
-        myf = mww.MyForm(self.add_article_form(),'/AddArticle')
+        myf = mww.MyForm(self.add_article_form(),'/cumt/AddArticle')
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Add New Article',myf.render_css())
@@ -44,7 +44,7 @@ class AddArticle:
     def POST(self):
         ipt = web.input(_unicode=True)
         f = self.add_article_form()
-        myf = mww.MyForm(f,'/AddArticle')
+        myf = mww.MyForm(f,'/cumt/AddArticle')
         if not f.validates(ipt):
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
@@ -61,7 +61,7 @@ class AddArticle:
 class DelArticle:
     @session.privilege_match(5)
     def GET(self):
-        myf = mww.MyForm(self.del_article_form(),'/DelArticle')
+        myf = mww.MyForm(self.del_article_form(),'/cumt/DelArticle')
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Del A Article',myf.render_css())
@@ -71,7 +71,7 @@ class DelArticle:
     def POST(self):
         ipt = web.input(_unicode=True)
         f = self.del_article_form()
-        myf = mww.MyForm(f,'/DelArticle')
+        myf = mww.MyForm(f,'/cumt/DelArticle')
         if not f.validates(ipt):
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
@@ -103,7 +103,7 @@ class DelArticle:
 class AlterArticle:
     @session.privilege_match(5)
     def GET(self):
-        myf = mww.MyForm(self.article_select_form(),'/AlterArticle')
+        myf = mww.MyForm(self.article_select_form(),'/cumt/AlterArticle')
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Article Select',myf.render_css())
@@ -130,8 +130,8 @@ class AlterArticle:
             article_info = articles.get_article_by_name(ipt.article)
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
-            aaf = mww.MyForm(self.alter_article_form()(article_info),'/AlterArticle')
-            asf = mww.MyForm(self.article_select_form(),'/AlterArticle')
+            aaf = mww.MyForm(self.alter_article_form()(article_info),'/cumt/AlterArticle')
+            asf = mww.MyForm(self.article_select_form(),'/cumt/AlterArticle')
             asf.form.fill(ipt)
             r1 = mww.Panel('Article Select',asf.render_css())
             r2 = mww.Panel('Alter Article',aaf.render_css())
@@ -143,7 +143,7 @@ class AlterArticle:
             web.config._title_list = articles.gen_title_list()
             return "success"
         else:
-            myf = mww.MyForm(self.article_select_form(),'/AlterArticle')
+            myf = mww.MyForm(self.article_select_form(),'/cumt/AlterArticle')
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
             r = mww.Panel('Article Select',myf.render_css())

@@ -26,13 +26,13 @@ def login(email):
         s['actions'] = []
     elif user.privilege == 5:
         s['actions']=[
-            ["/AddArticle","Add Article"],
-            ["/DelArticle","Del Article"],
-            ["/AlterArticle","Alter Article"],
-            ["/ResetUserPassword","ResetUserPwd"],
-            ["/UserManage","User Management"]
+            ["/cumt/AddArticle","Add Article"],
+            ["/cumt/DelArticle","Del Article"],
+            ["/cumt/AlterArticle","Alter Article"],
+            ["/cumt/ResetUserPassword","ResetUserPwd"],
+            ["/cumt/UserManage","User Management"]
         ]
-    s['actions'] += [["/ResetPassword","Reset Password"],["/Profile","Profile"],["/Logout","Logout"]]
+    s['actions'] += [["/cumt/ResetPassword","Reset Password"],["/cumt/Profile","Profile"],["/cumt/Logout","Logout"]]
 
 def logout():
     s = get_session()
@@ -42,7 +42,7 @@ def logout():
 def login_required(meth):
     def new(*args,**kw):
         if not get_session().privilege > 0:
-            raise web.seeother('/Login')
+            raise web.seeother('/cumt/Login')
         return meth(*args,**kw)
     return new
 
@@ -52,9 +52,9 @@ def privilege_match(allowed):
             _p = get_session().privilege
             if isinstance(allowed,list):
                 if _p not in allowed:
-                    raise web.seeother('/Login')
+                    raise web.seeother('/cumt/Login')
             elif _p != allowed:
-                raise web.seeother('/Login')
+                raise web.seeother('/cumt/Login')
             return func(*args,**kw)
         return _2
     return _1

@@ -11,14 +11,14 @@ from app.models import users
 from config import render
 
 def user_record_trans_to_display(r):
-    return Storage(operations='<a href="%s">%s</a>' % ('/UserDetail?uid=%d' % (r.get('uid')),'Detail'),
+    return Storage(operations='<a href="%s">%s</a>' % ('/cumt/UserDetail?uid=%d' % (r.get('uid')),'Detail'),
                    **r)
 
 
 class UserManage:
     @session.privilege_match(5)
     def GET(self):
-        myf = mww.MyForm(self.user_search_form(),'/UserManage')
+        myf = mww.MyForm(self.user_search_form(),'/cumt/UserManage')
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('User Management',myf.render_css())
@@ -29,7 +29,7 @@ class UserManage:
         ipt = web.input(_unicode=True)
         #print ipt
         f = self.user_search_form()
-        myf = mww.MyForm(f,'/UserManage')
+        myf = mww.MyForm(f,'/cumt/UserManage')
         if not f.validates(ipt):
             return "Argument Error"
         if len(ipt.uid)>0:
@@ -77,7 +77,7 @@ class UserManage:
 class ResetUserPassword:
     @session.privilege_match(5)
     def GET(self):
-        f = mww.MyForm(self.reset_user_password_form(),'/ResetUserPassword')
+        f = mww.MyForm(self.reset_user_password_form(),'/cumt/ResetUserPassword')
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Reset User Password',f.render_css())

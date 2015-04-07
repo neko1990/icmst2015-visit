@@ -6,7 +6,7 @@ from app.helpers import mywebwidgets as mww
 
 class Index:
     def GET(self):
-        raise web.seeother("/Article?name=Home")
+        raise web.seeother("/cumt/Article?name=Home")
 
 class Article:
     def GET(self):

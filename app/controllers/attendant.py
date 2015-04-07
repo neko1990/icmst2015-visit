@@ -22,8 +22,8 @@ u"外国语言文化学院",u"艺术与设计学院",u"体育学院",u"孙越崎
 class Application:
     def GET(self):
         if session.get_session().privilege != 1:
-            raise web.seeother('/ApplicationRoute')
-        f = mww.MyForm(self.registration_form(),'/Application')
+            raise web.seeother('/cumt/ApplicationRoute')
+        f = mww.MyForm(self.registration_form(),'/cumt/Application')
         user = users.get_user_by_uid(session.get_session().uid)
         f.form.fill(user)
         p = mww.Panel(u'提交申请',f.render_css())
@@ -31,9 +31,9 @@ class Application:
 
     def POST(self):
         if session.get_session().privilege != 1:
-            raise web.seeother('/ApplicationRoute')
+            raise web.seeother('/cumt/ApplicationRoute')
         ipt = web.input(_unicode=True)
-        f = mww.MyForm(self.registration_form(),'/Application')
+        f = mww.MyForm(self.registration_form(),'/cumt/Application')
         if not f.form.validates(ipt):
             p = mww.Panel('Application',f.render_css())
             return render.l12( page = p.render())
@@ -65,13 +65,13 @@ class Application:
 class ApplicationRoute:
     def GET(self):
         if session.get_session().privilege == 1:
-            raise web.seeother('/SendApplication')
+            raise web.seeother('/cumt/SendApplication')
         return render.application_route()
 
 class SendApplication:
     def GET(self):
         if session.get_session().privilege != 1:
-            raise web.seeother('/ApplicationRoute')
+            raise web.seeother('/cumt/ApplicationRoute')
         # if users.is_registered(session.get_session().uid):
         #     return render.application()
         return render.send_application()

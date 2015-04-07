@@ -18,13 +18,13 @@ class SignUp:
     def GET(self):
         if session.get_session().privilege != 0:
             # already login
-            raise web.seeother('/Profile')
-        form = mww.MyForm(self.register_form(),'/SignUp')
+            raise web.seeother('/cumt/Profile')
+        form = mww.MyForm(self.register_form(),'/cumt/SignUp')
         r = mww.Panel(u'注册',form.render_css()).render()
         return render.l12( page = r)
 
     def POST(self):
-        f = mww.MyForm(self.register_form(),'/SignUp')
+        f = mww.MyForm(self.register_form(),'/cumt/SignUp')
         ipt = web.input(_unicode=True)
         if not f.form.validates(ipt):
             show = web.input(show='all').show
@@ -36,7 +36,7 @@ class SignUp:
                 password = f.form.d.password,
                 privilege = 1)
             session.login(f.form.d.email)
-            raise web.seeother('/SendApplication')
+            raise web.seeother('/cumt/SendApplication')
 
     def register_form(self):
         return form.Form(
@@ -66,13 +66,13 @@ class Login:
     def GET(self):
         if session.get_session().privilege != 0:
             # already login
-            raise web.seeother('/Profile')
-        form = mww.MyForm(self.login_form(),'/Login')
+            raise web.seeother('/cumt/Profile')
+        form = mww.MyForm(self.login_form(),'/cumt/Login')
         r = mww.Panel('Login',form.render_css()).render()
         return render.l12( page = r)
 
     def POST(self):
-        f = mww.MyForm(self.login_form(),'/Login')
+        f = mww.MyForm(self.login_form(),'/cumt/Login')
         ipt = web.input(_unicode=False)
         if not f.form.validates(ipt):
             # show = ipt.get('show','all')
@@ -81,7 +81,7 @@ class Login:
             return render.l12( page = r)
         else:
             session.login(f.form.d.email)
-            raise web.seeother('/SendApplication')
+            raise web.seeother('/cumt/SendApplication')
 
     def login_form(self):
         return form.Form(
@@ -103,12 +103,12 @@ class Login:
 class Logout:
     def GET(self):
         session.logout()
-        raise web.seeother('/')
+        raise web.seeother('/cumt/')
 
 class Profile:
     @session.login_required
     def GET(self):
-        f = mww.MyForm(self.register_detail_form(),'/Profile')
+        f = mww.MyForm(self.register_detail_form(),'/cumt/Profile')
         f.form.fill(utils.extract_info_from_storage_by_list(session.get_session(),PROPERTY_LIST))
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
@@ -118,7 +118,7 @@ class Profile:
     @session.login_required
     def POST(self):
         ipt = web.input(_unicode=True)
-        f = mww.MyForm(self.register_detail_form(),'/Profile')
+        f = mww.MyForm(self.register_detail_form(),'/cumt/Profile')
         if not f.form.validates(ipt):
             s = mww.ListGroup(session.get_session().actions).render()
             l = mww.Panel('Settings',s)
@@ -141,7 +141,7 @@ class Profile:
 class ResetPassword:
     @session.login_required
     def GET(self):
-        f = mww.MyForm(self.reset_password_form(),'/ResetPassword')
+        f = mww.MyForm(self.reset_password_form(),'/cumt/ResetPassword')
         s = mww.ListGroup(session.get_session().actions).render()
         l = mww.Panel('Settings',s)
         r = mww.Panel('Reset Password',f.render_css())
