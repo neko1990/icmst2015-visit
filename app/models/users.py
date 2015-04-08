@@ -86,14 +86,24 @@ SELECT uid, group_concat(fid) as submited_fid,group_concat(distinct(session)) as
 
 
 def add_reg(uid,s):
-    return db.update('users', vars = dict(uid=uid),
-                     where = 'uid = $uid',
-                     studentid=s.studentid,
-                     college=s.college,
-                     name=s.name,
-                     telephone=s.telephone,
-                     gender=s.gender,
-    )
+    with db.transaction():
+        db.insert('reg_log',uid = uid ,
+                  studentid=s.studentid,
+                  college=s.college,
+                  name=s.name,
+                  telephone=s.telephone,
+                  gender=s.gender,
+        )
+        db.update('users', vars = dict(uid=uid),
+                  where = 'uid = $uid',
+                  studentid=s.studentid,
+                  college=s.college,
+                  name=s.name,
+                  telephone=s.telephone,
+                  gender=s.gender,
+        )
+        return True
+    return False
 
 def get_all_registrations():
     return db.select('users',where='privilege==1 AND studentid NOT NULL' ).list()

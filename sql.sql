@@ -7,7 +7,20 @@ CREATE TABLE users(
     college TEXT ,
     telephone TEXT,
     name TEXT,
-    gender TEXT
+    gender TEXT,
+    ctime DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE reg_log(
+    rid INTEGER PRIMARY KEY AUTOINCREMENT,
+    uid REFERENCES users(uid),
+    email TEXT UNIQUE,
+    studentid TEXT,
+    college TEXT ,
+    telephone TEXT,
+    name TEXT,
+    gender TEXT,
+    ctime DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE articles (
