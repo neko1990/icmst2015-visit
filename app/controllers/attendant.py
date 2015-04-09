@@ -22,8 +22,8 @@ u"外国语言文化学院",u"艺术与设计学院",u"体育学院",u"孙越崎
 ]
 
 def check_time():
-    start_time = datetime.datetime(2015,4,9,hour=23,minute = 10)
-    end_time = datetime.datetime(2015,4,15,hour=23,minute = 50)
+    start_time = datetime.datetime(2015,4,15,hour=9)
+    end_time = datetime.datetime(2015,4,15,hour=17)
     now = datetime.datetime.now()
     if now < start_time:
         return render.l12( page = u"时间未到，稍安勿躁。")
@@ -49,7 +49,7 @@ class Application:
         if session.get_session().privilege != 1:
             raise web.seeother('/cumt/ApplicationRoute')
         result = check_time()
-        if not result:
+        if result:
             return result
         ipt = web.input(_unicode=True)
         f = mww.MyForm(self.registration_form(),'/cumt/Application')
