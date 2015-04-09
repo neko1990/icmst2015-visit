@@ -30,7 +30,7 @@ def add_defaut_users():
 def add_defaut_articles():
     from app.models import articles
     articles.add_article("INDEX","INDEX","Home:HomeHomeSweetHome\nICMST2015:ICMST2015","NOPARENT",1)
-    articles.add_article("Home",u"申请观摩","URL:/ApplicationRoute","INDEX",0)
+    articles.add_article("Home",u"申请观摩","URL:/cumt/ApplicationRoute","INDEX",0)
     articles.add_article("ICMST2015","ICMST2015","URL:http://icmst2015.cumt.edu.cn","INDEX",0)
 
 
