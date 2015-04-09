@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 import web
 from web import form
 
@@ -19,10 +21,24 @@ u"电力工程学院",u"材料科学与工程学院",u"理学院",u"计算机科
 u"外国语言文化学院",u"艺术与设计学院",u"体育学院",u"孙越崎学院",u"国际学院",u"应用技术学院",u"成人教育学院",u"其他",
 ]
 
+def check_time():
+    start_time = datetime.datetime(2015,4,9,hour=23,minute = 10)
+    end_time = datetime.datetime(2015,4,15,hour=23,minute = 50)
+    now = datetime.datetime.now()
+    if now < start_time:
+        return render.l12( page = u"时间未到，稍安勿躁。")
+    elif now > end_time:
+        return render.l12( page = u"申请时间已过。" )
+    return False
+
+
 class Application:
     def GET(self):
         if session.get_session().privilege != 1:
             raise web.seeother('/cumt/ApplicationRoute')
+        result = check_time()
+        if not result:
+            return result
         f = mww.MyForm(self.registration_form(),'/cumt/Application')
         user = users.get_user_by_uid(session.get_session().uid)
         f.form.fill(user)
@@ -32,6 +48,9 @@ class Application:
     def POST(self):
         if session.get_session().privilege != 1:
             raise web.seeother('/cumt/ApplicationRoute')
+        result = check_time()
+        if not result:
+            return result
         ipt = web.input(_unicode=True)
         f = mww.MyForm(self.registration_form(),'/cumt/Application')
         if not f.form.validates(ipt):
