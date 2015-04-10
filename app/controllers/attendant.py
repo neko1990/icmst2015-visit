@@ -37,7 +37,7 @@ class Application:
         if session.get_session().privilege != 1:
             raise web.seeother('/cumt/ApplicationRoute')
         result = check_time()
-        if not result:
+        if result:
             return result
         f = mww.MyForm(self.registration_form(),'/cumt/Application')
         user = users.get_user_by_uid(session.get_session().uid)
