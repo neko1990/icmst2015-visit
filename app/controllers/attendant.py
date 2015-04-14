@@ -26,7 +26,7 @@ def check_time():
     end_time = datetime.datetime(2015,4,15,hour=17)
     now = datetime.datetime.now()
     if now < start_time:
-        return render.l12( page = u"时间未到，稍安勿躁。")
+        return render.l12( page = u"学生观摩注册平台将于4月15日 9:00-17:00 对外开放。")
     elif now > end_time:
         return render.l12( page = u"申请时间已过。" )
     return False
